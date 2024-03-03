@@ -24,7 +24,7 @@ function LinkList () {
   }
   // get the node at the position of the linklist
   LinkList.prototype.get = function (position) {
-    if (!this.isPositionValid(position)) return null
+    if (!this.isPositionValid(position) || !this.length) return null
     let index = 0, cur = this.head
     while (index++ < position) {
       cur = cur.next
@@ -104,16 +104,19 @@ function LinkList () {
       this.length--
       return node.data
     }
-    let pre = null, cur = this.head
-    while (!Object.is(cur.data, data) && cur.next) {
+    let pre = null, cur = this.head.next
+    while (cur && !Object.is(cur.data, data)) {
       pre = cur
       cur = cur.next
     }
-    if (!Object.is(cur.data, data)) {
+    if (!cur) {
       return null
     }
     this.length--
     pre.next = cur.next
+    if (Object.is(cur, this.tail)) {
+      this.tail = pre
+    }
     return cur.data
   }
   // return is the linklist empty
