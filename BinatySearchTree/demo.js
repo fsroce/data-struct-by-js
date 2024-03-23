@@ -19,3 +19,5 @@ bst.insert(6)
 // #endregion
 
 console.log(JSON.stringify(bst.preOrderTraversal()))
+console.log(bst.delete(11))
+console.log(JSON.stringify(bst.preOrderTraversal()))
